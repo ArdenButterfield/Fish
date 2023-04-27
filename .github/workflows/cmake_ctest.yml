@@ -129,9 +129,8 @@ jobs:
       shell: bash
       working-directory: Source/lib/lame
       run: |
-        ./configure CFLAGS=-fPIC
+        ./configure CFLAGS="-lgdi32 -fPIC"
         make
-        make install
     - name: Build LAME (unix)
       if: runner.os != 'Windows'
       shell: bash
