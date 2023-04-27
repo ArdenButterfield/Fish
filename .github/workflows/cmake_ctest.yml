@@ -125,10 +125,9 @@ jobs:
         p12-file-base64: ${{ secrets.DEV_ID_APP_CERT }}
         p12-password: ${{ secrets.DEV_ID_APP_PASSWORD }}
     - name: Build LAME
-      working-directory: ${{ env.BUILD_DIR }}
-      shell: bash
+      working-directory: ${{ env.LAME_DIR }}
       run: |
-        ./configure
+        configure
         make
     - name: Configure
       shell: bash
