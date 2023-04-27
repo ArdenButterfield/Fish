@@ -27,9 +27,7 @@ FishAudioProcessorEditor::FishAudioProcessorEditor (FishAudioProcessor& p)
     addAndMakeVisible(fishSlider);
     setSize (320, 320);
     current_frame = 0;
-    
-    fishSlider.addListener(this);
-    
+
     dirty_timer = true;
     timerCallback();
 }

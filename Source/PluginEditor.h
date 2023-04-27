@@ -61,7 +61,7 @@ private:
     
     juce::AudioProcessorValueTreeState::SliderAttachment fishAttachment {
         audioProcessor.getValueTreeState(),
-        FishAudioProcessor::fishParameterID,
+        "fish",
         fishSlider
     };
     bool dirty_timer;

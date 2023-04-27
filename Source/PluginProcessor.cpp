@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-juce::String FishAudioProcessor::fishParameterID ("fish");
-
 //==============================================================================
 FishAudioProcessor::FishAudioProcessor() :
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -38,12 +36,13 @@ parameters(*this,
            juce::Identifier("Fish"),
            std::make_unique<juce::AudioParameterFloat>(juce::ParameterID {"fish", 1}, "Fish", juce::NormalisableRange<float>(0.0,1.0),0.0))
 {
-    parameters.addParameterListener(fishParameterID, this);
+    parameters.addParameterListener("fish", this);
     sample_counter = 0;
 }
 
 FishAudioProcessor::~FishAudioProcessor()
 {
+    parameters.removeParameterListener("fish", this);
 }
 
 juce::AudioProcessorValueTreeState& FishAudioProcessor::getValueTreeState()
@@ -53,7 +52,7 @@ juce::AudioProcessorValueTreeState& FishAudioProcessor::getValueTreeState()
 
 void FishAudioProcessor::parameterChanged (const juce::String &parameterID, float newValue)
 {
-    if (parameterID == fishParameterID) {
+    if (parameterID == "fish") {
         fishUserParameter = newValue;
     }
     params_need_updating = true;
