@@ -126,8 +126,9 @@ jobs:
         p12-password: ${{ secrets.DEV_ID_APP_PASSWORD }}
     - name: Build LAME
       shell: bash
+      working-directory: Source/lib/lame
       run: |
-        Source/lib/lame/configure
+        configure
         make
     - name: Configure
       shell: bash
