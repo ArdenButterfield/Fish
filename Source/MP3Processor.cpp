@@ -47,7 +47,7 @@ bool MP3Processor::init(const int sampleRate, const int maxSamplesPerBlock) {
     }
     
     // Not all samplerates are supported by LAME.
-    const int* test_rate = std::find(std::begin(allowed_samplerates),
+    auto test_rate = std::find(std::begin(allowed_samplerates),
                               std::end(allowed_samplerates),
                               sampleRate);
     int samp_rate_to_use;
