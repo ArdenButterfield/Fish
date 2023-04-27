@@ -54,7 +54,7 @@
  * set to 1160 to sync with FhG.
  */
 
-#define ENCDELAY      96
+#define ENCDELAY      576
 
 
 

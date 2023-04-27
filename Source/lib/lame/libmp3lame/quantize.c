@@ -22,13 +22,12 @@
  * Boston, MA 02111-1307, USA.
  */
 
-/* $Id: quantize.c,v 1.216.2.1 2012/01/08 23:49:58 robert Exp $ */
+/* $Id: quantize.c,v 1.219 2017/08/02 19:48:05 robert Exp $ */
 
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
 
-#include <stdio.h>
 #include "lame.h"
 #include "machine.h"
 #include "encoder.h"
@@ -2013,7 +2012,6 @@ CBR_iteration_loop(lame_internal_flags * gfc, const FLOAT pe[2][2],
             reduce_side(targ_bits, ms_ener_ratio[gr], mean_bits, max_bits);
         }
 
-
         // BIG BEND
         if (gfc->ch1br < targ_bits[0]) {
             targ_bits[0] = gfc->ch1br;
@@ -2021,6 +2019,7 @@ CBR_iteration_loop(lame_internal_flags * gfc, const FLOAT pe[2][2],
         if (gfc->ch1br < targ_bits[1]) {
             targ_bits[1] = gfc->ch2br;
         }
+
 
         for (ch = 0; ch < cfg->channels_out; ch++) {
             FLOAT   adjust, masking_lower_db;

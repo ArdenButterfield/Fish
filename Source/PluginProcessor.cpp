@@ -30,11 +30,11 @@ FishAudioProcessor::FishAudioProcessor() :
                      #endif
                        ),
 #endif
-DEFAULT_MODE(0),
 parameters(*this,
            nullptr,
            juce::Identifier("Fish"),
-           std::make_unique<juce::AudioParameterFloat>(juce::ParameterID {"fish", 1}, "Fish", juce::NormalisableRange<float>(0.0,1.0),0.0))
+           std::make_unique<juce::AudioParameterFloat>(juce::ParameterID {"fish", 1}, "Fish", juce::NormalisableRange<float>(0.0,1.0),0.0)),
+DEFAULT_MODE(0)
 {
     parameters.addParameterListener("fish", this);
     sample_counter = 0;
