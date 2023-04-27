@@ -85,13 +85,12 @@ set(SourceFiles
     Source/LookAndFeel.h
     Source/RingBuffer.h
     Source/upsampler.h
+    Source/BinaryData.h
     )
 target_include_directories("${PROJECT_NAME}"
         PRIVATE
         Source/lib/lame/include)
-target_include_directories("${PROJECT_NAME}"
-        PRIVATE
-        cmake-build-debug/juce_binarydata_Assets/JuceLibraryCode)
+
 target_sources("${PROJECT_NAME}" PRIVATE ${SourceFiles})
 
 # No, we don't want our source buried in extra nested folders

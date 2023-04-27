@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <lame.h>
 #include <stdlib.h>
 #include <memory>
+#include <limits>
 
 class MP3Processor {
 public:
