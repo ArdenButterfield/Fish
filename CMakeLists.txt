@@ -68,10 +68,30 @@ target_compile_features("${PROJECT_NAME}" PRIVATE cxx_std_20)
 
 # Manually list all .h and .cpp files for the plugin
 set(SourceFiles
+    Source/stk-filters/Stk.cpp
+    Source/stk-filters/BiQuad.h
+    Source/stk-filters/Stk.h
+    Source/stk-filters/BiQuad.cpp
+    Source/stk-filters/Filter.h
     Source/PluginEditor.h
     Source/PluginProcessor.h
+    Source/MP3Processor.cpp
+    Source/filterCalc/FilterCalc.cpp
+    Source/filterCalc/FilterCalc.h
+    Source/downsampler.h
+    Source/PluginProcessor.cpp
     Source/PluginEditor.cpp
-    Source/PluginProcessor.cpp)
+    Source/MP3Processor.h
+    Source/LookAndFeel.h
+    Source/RingBuffer.h
+    Source/upsampler.h
+    )
+target_include_directories("${PROJECT_NAME}"
+        PRIVATE
+        Source/lib/lame/include)
+target_include_directories("${PROJECT_NAME}"
+        PRIVATE
+        cmake-build-debug/juce_binarydata_Assets/JuceLibraryCode)
 target_sources("${PROJECT_NAME}" PRIVATE ${SourceFiles})
 
 # No, we don't want our source buried in extra nested folders
@@ -81,7 +101,78 @@ set_target_properties("${PROJECT_NAME}" PROPERTIES FOLDER "")
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR}/Source PREFIX "" FILES ${SourceFiles})
 
 # Setup our binary data as a target
-juce_add_binary_data(Assets SOURCES pamplejuce.png)
+juce_add_binary_data(Assets SOURCES
+    Images/fish-ghost-0.png
+    Images/fish-ghost-1.png
+    Images/fish-ghost-2.png
+    Images/fish-ghost-3.png
+    Images/fish-ghost-4.png
+    Images/fish-ghost-5.png
+    Images/fish-ghost-6.png
+    Images/fish-ghost-7.png
+    Images/fish-ghost-8.png
+    Images/fish-ghost-9.png
+    Images/fish-ghost-10.png
+    Images/fish-ghost-11.png
+    Images/fish-ghost-12.png
+    Images/fish-ghost-13.png
+    Images/fish-ghost-14.png
+    Images/fish-ghost-15.png
+    Images/fish-ghost-16.png
+    Images/fish-ghost-17.png
+    Images/fish-ghost-18.png
+    Images/fish-ghost-19.png
+    Images/fish-ghost-20.png
+    Images/fish-ghost-21.png
+    Images/fish-ghost-22.png
+    Images/fish-ghost-23.png
+    Images/fish-ghost-24.png
+    Images/fish-ghost-25.png
+    Images/fish-ghost-26.png
+    Images/fish-ghost-27.png
+    Images/fish-ghost-28.png
+    Images/fish-ghost-29.png
+    Images/fish-ghost-30.png
+    Images/fish-ghost-31.png
+    Images/fish-ghost-32.png
+    Images/fish-ghost-33.png
+    Images/fish-ghost-34.png
+    Images/fish-unique-0.png
+    Images/fish-unique-1.png
+    Images/fish-unique-2.png
+    Images/fish-unique-3.png
+    Images/fish-unique-4.png
+    Images/fish-unique-5.png
+    Images/fish-unique-6.png
+    Images/fish-unique-7.png
+    Images/fish-unique-8.png
+    Images/fish-unique-9.png
+    Images/fish-unique-10.png
+    Images/fish-unique-11.png
+    Images/fish-unique-12.png
+    Images/fish-unique-13.png
+    Images/fish-unique-14.png
+    Images/fish-unique-15.png
+    Images/fish-unique-16.png
+    Images/fish-unique-17.png
+    Images/fish-unique-18.png
+    Images/fish-unique-19.png
+    Images/fish-unique-20.png
+    Images/fish-unique-21.png
+    Images/fish-unique-22.png
+    Images/fish-unique-23.png
+    Images/fish-unique-24.png
+    Images/fish-unique-25.png
+    Images/fish-unique-26.png
+    Images/fish-unique-27.png
+    Images/fish-unique-28.png
+    Images/fish-unique-29.png
+    Images/fish-unique-30.png
+    Images/fish-unique-31.png
+    Images/fish-unique-32.png
+    Images/fish-unique-33.png
+    Images/fish-unique-34.png
+)
 
 # Required for Linux happiness:
 # See https://forum.juce.com/t/loading-pytorch-model-using-binarydata/39997/2
@@ -117,9 +208,12 @@ target_compile_definitions("${PROJECT_NAME}"
     JUCE_USE_CURL=0     # If you remove this, add `NEEDS_CURL TRUE` to the `juce_add_plugin` call
     JUCE_VST3_CAN_REPLACE_VST2=0)
 
+
+# link_directories(./Source/lib/lame/libmp3lame/.libs/)
 target_link_libraries("${PROJECT_NAME}"
     PRIVATE
     Assets
+    ${CMAKE_CURRENT_SOURCE_DIR}/Source/lib/lame/libmp3lame/.libs/libmp3lame.a
     PUBLIC
     juce::juce_audio_utils
     juce::juce_audio_processors

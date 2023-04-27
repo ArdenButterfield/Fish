@@ -28,3 +28,10 @@ cmake-build-debug
 cmake-build-release
 cmake-build-relwithdebinfo
 packaging/Output/*
+
+##
+**/*.a
+**/*.o
+**/*.so
+**/*.dylib
+**/*.la[i]
