@@ -258,8 +258,16 @@ add_executable(Tests ${TestFiles})
 target_compile_features(Tests PRIVATE cxx_std_20)
 
 # Our test executable also wants to know about our plugin code...
-target_include_directories(Tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Source)
-target_link_libraries(Tests PRIVATE Catch2::Catch2WithMain "${PROJECT_NAME}")
+target_include_directories(Tests
+        PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/Source
+        Source/lib/lame/include)
+
+target_link_libraries(Tests
+        PRIVATE
+        Catch2::Catch2WithMain "${PROJECT_NAME}"
+        ${CMAKE_CURRENT_SOURCE_DIR}/Source/lib/lame/libmp3lame/.libs/libmp3lame.a
+        )
 
 # We can't link again to the shared juce target without ODL violations
 # However, we can steal its include dirs and compile definitions to use in tests!
