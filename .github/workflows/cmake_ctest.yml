@@ -128,8 +128,7 @@ jobs:
       shell: bash
       working-directory: Source/lib/lame
       run: |
-        pwd
-        configure
+        ./configure
         make
     - name: Configure
       shell: bash
