@@ -130,6 +130,7 @@ jobs:
       working-directory: Source/lib/lame
       run: |
         ./configure CFLAGS="-lgdi32 -fPIC"
+        make clean
         make
     - name: Build LAME (unix)
       if: runner.os != 'Windows'
@@ -137,6 +138,7 @@ jobs:
       working-directory: Source/lib/lame
       run: |
         ./configure CFLAGS=-fPIC
+        make clean
         make
     - name: Configure
       shell: bash
