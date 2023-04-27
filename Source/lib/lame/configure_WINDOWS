@@ -1536,7 +1536,7 @@ it to find libraries and programs with nonstandard names/locations.
 Report bugs to <lame-dev@lists.sf.net>.
 _ACEOF
 
-CFLAGS="-fPIC"
+CFLAGS="-lgdi32 -fPIC"
 ac_status=$?
 fi
 
