@@ -128,9 +128,10 @@ jobs:
       shell: bash
       working-directory: Source/lib/lame
       run: |
-        ./configure CC="clang" CFLAGS="-fPIC" --disable-frontend
-        make clean
-        make
+        # ./configure CC="clang" CFLAGS="-fPIC" --disable-frontend
+        # make clean
+        # make
+        make -f Makefile.unix UNAME=MSDOS
     - name: Build LAME (linux)
       if: ${{ matrix.name == 'Linux' }}
       shell: bash
