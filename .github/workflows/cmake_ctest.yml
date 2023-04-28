@@ -133,7 +133,7 @@ jobs:
       shell: bash
       working-directory: Source/lib/lame
       run: |
-        ./configure --prefix=/mingw CFLAGS="-lgdi32 -fPIC" --disable-frontend --enable-expopt=full --disable-shared --enable-static
+        ./configure CFLAGS="-lgdi32 -fPIC" --disable-frontend
         make clean
         make
     - name: Build LAME (unix)
@@ -141,7 +141,7 @@ jobs:
       shell: bash
       working-directory: Source/lib/lame
       run: |
-        ./configure CFLAGS="-fPIC  --disable-frontend --enable-expopt=full --disable-shared --enable-static"
+        ./configure CFLAGS="-fPIC"  --disable-frontend --enable-expopt=full --disable-shared --enable-static
         make clean
         make
     - name: Configure
