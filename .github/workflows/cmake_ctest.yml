@@ -128,7 +128,7 @@ jobs:
       shell: bash
       working-directory: Source/lib/lame
       run: |
-        ./configure CC="clang --target=x86_64-w64-windows-gnu" --build="x86_64-pc-windows-gnu" CFLAGS="-fPIC" --disable-frontend
+        ./configure CC="clang --target=x86_64-pc-windows-gnu" CFLAGS="-fPIC" --disable-frontend
         make clean
         make
     - name: Build LAME (linux)
