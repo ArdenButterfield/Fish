@@ -129,19 +129,27 @@ jobs:
         p12-file-base64: ${{ secrets.DEV_ID_APP_CERT }}
         p12-password: ${{ secrets.DEV_ID_APP_PASSWORD }}
     - name: Build LAME (windows)
-      if: runner.os == 'Windows'
+      if: ${{ matrix.name == 'Windows' }}
       shell: bash
       working-directory: Source/lib/lame
       run: |
         ./configure CFLAGS="-lgdi32 -fPIC" --disable-frontend
         make clean
         make
-    - name: Build LAME (unix)
-      if: runner.os != 'Windows'
+    - name: Build LAME (linux)
+      if: ${{ matrix.name == 'Linux' }}
       shell: bash
       working-directory: Source/lib/lame
       run: |
         ./configure CFLAGS="-fPIC"  --disable-frontend --enable-expopt=full --disable-shared --enable-static
+        make clean
+        make
+    - name: Build LAME (mac)
+      if: ${{ matrix.name == 'macOS' }}
+      shell: bash
+      working-directory: Source/lib/lame
+      run: |
+        ./configure CFLAGS="-arch x86_64 -arch arm64 -fPIC"  --disable-frontend --enable-expopt=full --disable-shared --enable-static
         make clean
         make
     - name: Configure
