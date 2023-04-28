@@ -133,7 +133,7 @@ jobs:
       shell: bash
       working-directory: Source/lib/lame
       run: |
-        ./configure CFLAGS="-fPIC"
+        ./configure CFLAGS="-fPIC" --disable-frontend
         make clean
         make
     - name: Build LAME (linux)
