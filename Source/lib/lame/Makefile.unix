@@ -617,8 +617,8 @@ libmp3lame/libmp3lame.a:  $(lib_obj)
 	echo $(lib_obj)
 	$(AR) cr libmp3lame/libmp3lame.a  $(lib_obj)
 	$(RANLIB) libmp3lame/libmp3lame.a
-   mkdir libmp3lame/.libs 
-   cp libmp3lame/libmp3lame.a libmp3lame/.libs
+	mkdir libmp3lame/.libs 
+	cp libmp3lame/libmp3lame.a libmp3lame/.libs
 
 #shared library.  GNU specific?
 libmp3lame/libmp3lame.so:  $(lib_obj)
