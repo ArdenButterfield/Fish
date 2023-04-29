@@ -427,8 +427,7 @@ ifeq ($(UNAME),MSDOS)
   RM =
   CC_OPTS = \
        -Wall -pipe -O3 -fomit-frame-pointer -ffast-math -funroll-loops \
-       -fschedule-insns2        \
-       -mcpu=pentium -march=pentium -mfancy-math-387
+       -fschedule-insns2  -mfancy-math-387
   CC_OPTS += -D_cdecl=__cdecl
   PGM = lame.exe
 endif
