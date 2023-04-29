@@ -123,12 +123,6 @@ jobs:
       with:
         p12-file-base64: ${{ secrets.DEV_ID_APP_CERT }}
         p12-password: ${{ secrets.DEV_ID_APP_PASSWORD }}
-    - name: Update Mingw (windows)
-      if: ${{ matrix.name == 'Windows' }}
-      shell: bash
-      run: |
-        mingw-get update
-        mingw-get upgrade
     - name: Build LAME (windows)
       if: ${{ matrix.name == 'Windows' }}
       shell: bash
