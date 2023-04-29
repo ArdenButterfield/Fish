@@ -223,6 +223,7 @@ target_link_libraries("${PROJECT_NAME}"
 # When present, use Intel IPP for performance on Windows
 if(WIN32) # Can't use MSVC here, as it won't catch Clang on Windows
     find_package(IPP)
+    target_link_libraries("${PROJECT_NAME}" PUBLIC c:/programdata/chocolatey/lib/mingw/tools/install/mingw64/x86_64-w64-mingw32/lib/libmingwex.a)
     if(IPP_FOUND)
         target_link_libraries("${PROJECT_NAME}" PUBLIC IPP::ipps IPP::ippcore IPP::ippi IPP::ippcv)
         message("IPP LIBRARIES FOUND")

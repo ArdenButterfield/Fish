@@ -135,7 +135,7 @@ jobs:
       shell: bash
       working-directory: Source/lib/lame
       run: |
-        ./configure LDFLAGS="-Lc:/programdata/chocolatey/lib/mingw/tools/install/mingw64/x86_64-w64-mingw32/lib" LIBS="-lmingwex" CFLAGS="-fPIC" --disable-frontend
+        ./configure CFLAGS="-fPIC" --disable-frontend
         make clean
         make
     - name: Build LAME (linux)
