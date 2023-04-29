@@ -135,7 +135,7 @@ jobs:
       shell: bash
       working-directory: Source/lib/lame
       run: |
-        ./configure CFLAGS="-fPIC" --disable-frontend
+        ./configure LIBS='-lmingwex' CFLAGS="-fPIC" --disable-frontend
         make clean
         make
     - name: Build LAME (linux)
