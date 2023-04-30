@@ -137,9 +137,7 @@ jobs:
         choco uninstall strawberryperl --force
     - name: Install correct version of mingw part 2
       if: ${{ matrix.name == 'Windows' }}
-      uses: numworks/setup-msys2@v1
-      with:
-        msystem: MINGW32
+      uses: msys2/setup-msys2@v2
     - name: Build LAME (windows)
       if: ${{ matrix.name == 'Windows' }}
       shell: bash
