@@ -130,12 +130,22 @@ jobs:
     - name: GCC version
       shell: bash
       run: gcc --version
+    - name: Install correct version of mingw
+      if: ${{ matrix.name == 'Windows' }}
+      run: |
+        choco uninstall mingw --force
+        choco uninstall strawberryperl --force
+    - name: Install correct version of mingw part 2
+      if: ${{ matrix.name == 'Windows' }}
+      uses: numworks/setup-msys2@v1
+      with:
+        msystem: MINGW32
     - name: Build LAME (windows)
       if: ${{ matrix.name == 'Windows' }}
       shell: bash
       working-directory: Source/lib/lame
       run: |
-        ./configure CC="C:/Program Files/LLVM/bin/cc.exe" CFLAGS="-fPIC" --disable-frontend
+        ./configure CFLAGS="-fPIC" --disable-frontend
         make clean
         make
     - name: Build LAME (linux)
