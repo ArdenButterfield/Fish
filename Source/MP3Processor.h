@@ -21,8 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <vector>
 #include <array>
+extern "C" {
 #include <lame.h>
-#include <stdlib.h>
+}
 #include <algorithm>
 #include <memory>
 #include <limits>
