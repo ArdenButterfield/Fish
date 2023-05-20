@@ -20,7 +20,7 @@
 */
 
 #include <windows.h>
-#include <Windef.h>
+#include <windef.h>
 #include "BladeMP3EncDLL.h"
 #include <assert.h>
 #include <stdio.h>

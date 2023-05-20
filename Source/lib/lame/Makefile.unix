@@ -427,7 +427,8 @@ ifeq ($(UNAME),MSDOS)
   RM =
   CC_OPTS = \
        -Wall -pipe -O3 -fomit-frame-pointer -ffast-math -funroll-loops \
-       -fschedule-insns2  -mfancy-math-387
+       -fschedule-insns2 -fmove-all-movables -freduce-all-givs         \
+       -mcpu=pentium -march=pentium -mfancy-math-387
   CC_OPTS += -D_cdecl=__cdecl
   PGM = lame.exe
 endif
@@ -617,8 +618,6 @@ libmp3lame/libmp3lame.a:  $(lib_obj)
 	echo $(lib_obj)
 	$(AR) cr libmp3lame/libmp3lame.a  $(lib_obj)
 	$(RANLIB) libmp3lame/libmp3lame.a
-	mkdir libmp3lame/.libs 
-	cp libmp3lame/libmp3lame.a libmp3lame/.libs
 
 #shared library.  GNU specific?
 libmp3lame/libmp3lame.so:  $(lib_obj)
