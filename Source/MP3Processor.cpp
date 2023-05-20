@@ -30,6 +30,7 @@ MP3Processor::MP3Processor(){
 MP3Processor::~MP3Processor() { deInit(); }
 
 bool MP3Processor::init(const int sampleRate, const int maxSamplesPerBlock) {
+    max_samples_per_block = maxSamplesPerBlock;
     input_buf_size = max_samples_per_block;
     // From LAME api: mp3buf_size in bytes = 1.25*num_samples + 7200
     mp3_buf_size = input_buf_size * 1.25 + 7200;
@@ -39,7 +40,6 @@ bool MP3Processor::init(const int sampleRate, const int maxSamplesPerBlock) {
     outputBufferL = std::make_unique<QueueBuffer<float>>(1152 + maxSamplesPerBlock, 0.f);
     outputBufferR = std::make_unique<QueueBuffer<float>>(1152 + maxSamplesPerBlock, 0.f);
     
-    max_samples_per_block = maxSamplesPerBlock;
     
     lame_enc_handler = lame_init();
     if (!lame_enc_handler) {

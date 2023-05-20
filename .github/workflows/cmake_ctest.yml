@@ -34,14 +34,18 @@ jobs:
             os: ubuntu-22.04
             pluginval-binary: ./pluginval
             ccache: ccache
+            lame-lib: Source/lib/lame/libmp3lame/.libs/libmp3lame.a
           - name: macOS
             os: macos-12
             pluginval-binary: pluginval.app/Contents/MacOS/pluginval
             ccache: ccache
+            lame-lib: Source/lib/lame/libmp3lame/.libs/libmp3lame.a
           - name: Windows
             os: windows-latest
             pluginval-binary: ./pluginval.exe
             ccache: sccache
+            lame-lib: Source/lib/lame/output/libmp3lame-static.lib
+
 
     steps:
 
@@ -100,6 +104,9 @@ jobs:
       uses: actions/checkout@v3
       with:
         submodules: true # Get JUCE populated
+    - name: get msvc (windows)
+      if: ${{ matrix.name == 'Windows' }}
+      uses: ilammy/msvc-dev-cmd@v1
 
     - name: Setup Environment Variables
       shell: bash
@@ -140,12 +147,13 @@ jobs:
       uses: msys2/setup-msys2@v2
     - name: Build LAME (windows)
       if: ${{ matrix.name == 'Windows' }}
-      shell: bash
       working-directory: Source/lib/lame
       run: |
-        ./configure CFLAGS="-fPIC" --disable-frontend
-        make clean
-        make
+        which link
+        $env:path
+        cp configMS.h config.h
+        # nmake clean -f Makefile.MSVC
+        nmake dll -f Makefile.MSVC comp=msvc asm=no
     - name: Build LAME (linux)
       if: ${{ matrix.name == 'Linux' }}
       shell: bash
@@ -162,6 +170,9 @@ jobs:
         ./configure CFLAGS="-arch x86_64 -arch arm64 -fPIC"  --disable-frontend
         make clean
         make
+    - name: Configure
+      shell: bash
+      run: cmake -B ${{ env.BUILD_DIR }} -G Ninja -DLAME_LIB=${{ matrix.lame-lib }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE}} -DCMAKE_C_COMPILER_LAUNCHER=${{ matrix.ccache }} -DCMAKE_CXX_COMPILER_LAUNCHER=${{ matrix.ccache }} -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64" .
     - name: Build
       shell: bash
       run: cmake --build ${{ env.BUILD_DIR }} --config ${{ env.BUILD_TYPE }} --parallel 4
