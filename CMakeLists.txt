@@ -31,7 +31,7 @@ if ((DEFINED ENV{CI}) AND (CMAKE_BUILD_TYPE STREQUAL "Release"))
   set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
 endif ()
 
-set(LAMELIBRARYPATH "${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}")
+set(LAMELIBRARYPATH "${CMAKE_CURRENT_SOURCE_DIR}/${LAME_LIB}")
 
 # Adds all the module sources so they appear correctly in the IDE
 # Must be set before JUCE is added as a sub-dir (or any targets are made)
