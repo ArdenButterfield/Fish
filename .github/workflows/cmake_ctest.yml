@@ -128,9 +128,10 @@ jobs:
         p12-password: ${{ secrets.DEV_ID_APP_PASSWORD }}
     - name: Build LAME (windows)
       if: ${{ matrix.name == 'Windows' }}
-      shell: bash
       working-directory: Source/lib/lame
       run: |
+        which link
+        $env:path
         cp configMS.h config.h
         # nmake clean -f Makefile.MSVC
         nmake dll -f Makefile.MSVC comp=msvc asm=no

@@ -99,8 +99,8 @@ SNDFILE = NO
 !	ENDIF
 
 OFF = win32
-# MACHINE = /machine:X64
-# LIB_OPTS = /nologo $(MACHINE) 
+MACHINE = /machine:X64
+LIB_OPTS = /nologo $(MACHINE) 
 
 !	MESSAGE ----------------------------------------------------------------------
 !	IF "$(CFG)" == ""
