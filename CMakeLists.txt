@@ -31,11 +31,8 @@ if ((DEFINED ENV{CI}) AND (CMAKE_BUILD_TYPE STREQUAL "Release"))
   set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
 endif ()
 
-if (MSVC) 
-    set(LAMELIBRARYPATH ${CMAKE_CURRENT_SOURCE_DIR}/Source/lib/lame/output/libmp3lame-static.lib)
-else()
-    set(LAMELIBRARYPATH ${CMAKE_CURRENT_SOURCE_DIR}/Source/lib/lame/libmp3lame/.libs/libmp3lame.a)
-endif()
+set(LAMELIBRARYPATH "${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_BUILD_TYPE}")
+
 # Adds all the module sources so they appear correctly in the IDE
 # Must be set before JUCE is added as a sub-dir (or any targets are made)
 # https://github.com/juce-framework/JUCE/commit/6b1b4cf7f6b1008db44411f2c8887d71a3348889
