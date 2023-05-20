@@ -31,6 +31,11 @@ if ((DEFINED ENV{CI}) AND (CMAKE_BUILD_TYPE STREQUAL "Release"))
   set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
 endif ()
 
+if (MSVC) 
+    set(LAMELIBRARYPATH ${CMAKE_CURRENT_SOURCE_DIR}/Source/lib/lame/output/libmp3lame-static.lib)
+else()
+    set(LAMELIBRARYPATH ${CMAKE_CURRENT_SOURCE_DIR}/Source/lib/lame/libmp3lame/.libs/libmp3lame.a)
+endif()
 # Adds all the module sources so they appear correctly in the IDE
 # Must be set before JUCE is added as a sub-dir (or any targets are made)
 # https://github.com/juce-framework/JUCE/commit/6b1b4cf7f6b1008db44411f2c8887d71a3348889
@@ -212,13 +217,15 @@ target_compile_definitions("${PROJECT_NAME}"
 target_link_libraries("${PROJECT_NAME}"
     PRIVATE
     Assets
-    ${CMAKE_CURRENT_SOURCE_DIR}/Source/lib/lame/libmp3lame/.libs/libmp3lame.a
+    "${LAMELIBRARYPATH}"
     PUBLIC
     juce::juce_audio_utils
     juce::juce_audio_processors
     juce::juce_recommended_config_flags
     juce::juce_recommended_lto_flags
     juce::juce_recommended_warning_flags)
+
+
 
 # When present, use Intel IPP for performance on Windows
 if(WIN32) # Can't use MSVC here, as it won't catch Clang on Windows
@@ -266,7 +273,7 @@ target_include_directories(Tests
 target_link_libraries(Tests
         PRIVATE
         Catch2::Catch2WithMain "${PROJECT_NAME}"
-        ${CMAKE_CURRENT_SOURCE_DIR}/Source/lib/lame/libmp3lame/.libs/libmp3lame.a
+        "${LAMELIBRARYPATH}"
         )
 
 # We can't link again to the shared juce target without ODL violations
