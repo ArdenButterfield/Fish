@@ -123,9 +123,11 @@ jobs:
       with:
         p12-file-base64: ${{ secrets.DEV_ID_APP_CERT }}
         p12-password: ${{ secrets.DEV_ID_APP_PASSWORD }}
-    - name: Build LAME (windows)
+    - name: get msvc (windows)
       if: ${{ matrix.name == 'Windows' }}
       uses: ilammy/msvc-dev-cmd@v1.4.
+    - name: Build LAME (windows)
+      if: ${{ matrix.name == 'Windows' }}
       shell: bash
       working-directory: Source/lib/lame
       run: |
