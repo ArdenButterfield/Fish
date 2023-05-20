@@ -125,13 +125,13 @@ jobs:
         p12-password: ${{ secrets.DEV_ID_APP_PASSWORD }}
     - name: Build LAME (windows)
       if: ${{ matrix.name == 'Windows' }}
+      uses: ilammy/msvc-dev-cmd@v1.4.
       shell: bash
       working-directory: Source/lib/lame
       run: |
-        # ./configure CC="clang" CFLAGS="-fPIC" --disable-frontend
-        # make clean
-        # make
-        make -f Makefile.unix UNAME=MSDOS NOUNIXCMD=NO
+        cp configMS.h config.h
+        # nmake clean -f Makefile.MSVC
+        nmake -f Makefile.MSVC comp=msvc asm=no
     - name: Build LAME (linux)
       if: ${{ matrix.name == 'Linux' }}
       shell: bash
