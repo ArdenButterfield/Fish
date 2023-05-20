@@ -35,3 +35,4 @@ packaging/Output/*
 **/*.so
 **/*.dylib
 **/*.la[i]
+Docs/Windows-Fish-Saga.md
