@@ -13,11 +13,11 @@ I made Fish as a part of my undergraduate thesis at the University of Oregon. Go
 
 [Read the manual](Docs/MANUAL.md).
 
-Fish's partner plugin is Empy, who is much more professional and put together than Fish could ever be. Empy has lots of knobs, which Fish doesn't always understand. That said, Empy and Fish love each other very much, and are very proud of their kid Maim, who will go on to do great things some day.
+Fish's partner plugin is [Empy](https://github.com/ArdenButterfield/Empy/), who is much more professional and put together than Fish could ever be. Empy has lots of knobs, which Fish doesn't always understand. That said, Empy and Fish love each other very much, and are very proud of their kid [Maim](https://github.com/ArdenButterfield/Maim/), who will go on to do great things some day.
 
 ## Installation Instructions
 
-Under the releases tab from this page, download the file corresponding to your operating system. 
+Under the [releases](https://github.com/ArdenButterfield/Empy/releases/) tab from this page, download the file corresponding to your operating system. 
 
 On Windows or Mac, follow the instructions in the installer to install the plugin to your plugins folder. 
 
