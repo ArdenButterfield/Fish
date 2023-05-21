@@ -5,7 +5,7 @@
 - Fish is the one-knob plugin that dares to ask: what if your song sounded *worse*?
 - Hacked together from the guts of a real MP3 encoder, Fish delivers distinct low-quality sound without making you slog through the theory.
 - Free downloads for Mac, Windows *and* Linux.
-- Code is open-sourced: under the GPL-3.0 license, and avaliabe right here on Github: you can build, hack, and tinker with Fish yourself. Just don't use it in your closed-source project, even if it's gonna be really cool.
+- Code is open-sourced: under the GPL-3.0 license, and available right here on Github: you can build, hack, and tinker with Fish yourself. Just release your changes under the same license.
 
 I made Fish as a part of my undergraduate thesis at the University of Oregon. Go ducks et al.
 
