@@ -17,7 +17,7 @@ Fish's partner plugin is [Empy](https://github.com/ArdenButterfield/Empy/), who 
 
 ## Installation Instructions
 
-Under the [releases](https://github.com/ArdenButterfield/Empy/releases/) tab from this page, download the file corresponding to your operating system. 
+Under the [releases](https://github.com/ArdenButterfield/Fish/releases/) tab from this page, download the file corresponding to your operating system. 
 
 On Windows or Mac, follow the instructions in the installer to install the plugin to your plugins folder. 
 
