@@ -6,13 +6,13 @@ In designing Fish, I set out to produce a distinctive tone not found in other lo
 
 ## Using Fish
 
-<img src="img/gui.png">
+<img src="images/gui.png">
 
 Fish has one parameter, called fish. It is controlled by dragging up and down on the GUI. At higher amounts of fish, Fish lowers the target bit value per granule, and lowers the cutoff frequency of the lowpass filter. The animation spins faster the more fish there is.
 
 ## How Fish Works
 
-<img src="img/signal_flow.png">
+<img src="images/signal_flow.png">
 
 Despite the simple user interface, Fish's guts are surprisingly complicated.
 
@@ -30,7 +30,7 @@ As audio data gets spread across more frames, the latency of the full encoding a
 
 To achieve smooth automation, I modified the code of LAME. Unlike LameVST, Fish does not have to accurately model the sound LAME gives at a certain bitrate. The core of the LAME encoding process occurs in the file `quantize.h`, with the function call `outer_loop(gfc, cod_info, l3_xmin, xrpow, ch, targ_bits[ch]);`. This function takes a granule  of audio, the allowable distortion at each frequency (as calculated by the psychoacoustic model), the channel being encoded, and the target number of bits that should be used to encode that channel of that granule.  As seen in figure 18, the average value of targ_bits increases with the bitrate. Generally speaking, more bits are allocated to the first channel (the mid channel in mid/side encoding) than the second. If, instead of passing `targ_bits[ch]` as the final parameter in `outer_loop`, we pass some other number, we can actually change the quality.  This hack opens up three exciting possibilities. First, we can change the amount of lossy distortion on the fly, by changing the target bit value. Second, we can gradually adjust the target bit value, resulting in a smooth gradation of quality, instead of the dozen or so bitrates supported by the LAME API. Finally, we can push the target bit value even lower than even the lowest bitrates supported by LAME, resulting in an exaggerated, bubbly lossy distortion. 
 
-<img src="img/targ_bits.svg">
+<img src="images/targ_bits.svg">
 
 This hack comes at a cost. Although it may be possible, I could not find a way to change the cutoff frequency of LAME’s low-pass filter on the fly. Since the muffled low-passed sound is an important part of the sound of lossy distortion (particularly in the sound of  “Hey Ya Low Quality”), I added a simple low-pass biquad filter on the signal before passing it into the encoder. This filter’s cutoff frequency lowers as the fish parameter raises.
 
@@ -38,4 +38,4 @@ To get the slow, churning distortion that I wanted from Fish required downsampli
 
 Fish also lowers the amplitude of the incoming signal by about 6 dB before processing, and raises it by 6 dB after processing. Without this step, loud signals could clip during the MP3 compression step, leading to unwanted distortion.
 
-*For more details on messing with LAME to get low latency, see my notes [here](understanding_lame/notes.md).*
+*For more details on messing with LAME to get low latency, see my notes [here](lame-notes.md).*

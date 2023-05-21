@@ -1,29 +1,26 @@
 # Fish
 
-<img src="img/gui.png">
+<img src="Docs/images/gui.png">
 
 - Fish is the one-knob plugin that dares to ask: what if your song sounded *worse*?
 - Hacked together from the guts of a real MP3 encoder, Fish delivers distinct low-quality sound without making you slog through the theory.
-- Free Mac download, Windows download in the works.
-- Code is open-sourced: under the GPL-3.0 license, and avaliabe right here on Github: you can build, hack, and tinker with Fish yourself.
+- Free downloads for Mac, Windows *and* Linux.
+- Code is open-sourced: under the GPL-3.0 license, and avaliabe right here on Github: you can build, hack, and tinker with Fish yourself. Just don't use it in your closed-source project, even if it's gonna be really cool.
 
-I made Fish as a part of my undergraduate thesis at the University of Oregon.
+I made Fish as a part of my undergraduate thesis at the University of Oregon. Go ducks et al.
 
 [See Fish in action](https://youtu.be/x2X7x6drGhg)!
 
-[Read the manual](MANUAL.md).
+[Read the manual](Docs/MANUAL.md).
 
-## Build instructions
+Fish's partner plugin is Empy, who is much more professional and put together than Fish could ever be. Empy has lots of knobs, which Fish doesn't always understand. That said, Empy and Fish love each other very much, and are very proud of their kid Maim, who will go on to do great things some day.
 
-Fish uses a modified version of the LAME MP3 encoding library. To compile it, run the following commands.
+## Installation Instructions
 
-```sh
-cd Fish/lib/lame-master
-./configure
-make
-```
+Under the releases tab from this page, download the file corresponding to your operating system. 
 
-Building Fish requires the JUCE library. Open `Fish.jucer` in Projucer. If Necessary, update the path to JUCE in Projucer. If building in XCode, click the "Save and Open in IDE" button; otherwise, create a new build target for the build system you are using. In the IDE, run the build scheme.
+On Windows or Mac, follow the instructions in the installer to install the plugin to your plugins folder. 
 
-Now, if you check the user plugin directory (`~/Library/Audio/Plug-Ins` on Mac), you should see both Empy.vst3 and Empy.component. Now, when you launch your DAW, Empy should show up in the list of plug-ins, under the manufacturer name Arden Butterfield.
+On Linux, you'll have to copy `Fish.vst3` to your plugin folder. Often this is at `~/.vst3`, but if you're making music on Linux you're probably already a step ahead of me.
 
+If you have any issues, please raise an issue on the issues page of this repository and describe your situation.
