@@ -46,8 +46,8 @@ public:
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
-    void timerCallback() override;
     void sliderValueChanged(juce::Slider* slider) override;
+    void timerCallback() override;
 
 private:
     FishAudioProcessor& audioProcessor;
@@ -64,12 +64,17 @@ private:
         "fish",
         fishSlider
     };
-    bool dirty_timer;
-    void setTimer(double slider_val);
-    
-    static const int NUM_FISH_FRAMES = 35;
-    int frame_step;
-    
+
+    double lastTime;
+    double spinAlong;
+
+    auto getDeltaTime(double now) -> double;
+
+    constexpr static auto MIN_ROTATIONS_PER_SECOND = 0.25;
+    constexpr static auto MAX_ROTATIONS_PER_SECOND = 2.5;
+
+    constexpr static auto NUM_FISH_FRAMES = 35;
+
     // The fish image was originally a GIF, it is here separated as PNGs to give greater control
     // over frame rate and skipping frames.
     const std::array<juce::Image, NUM_FISH_FRAMES>fish_frames = {
@@ -148,6 +153,5 @@ private:
         juce::ImageCache::getFromMemory(BinaryData::fishghost34_png, BinaryData::fishghost34_pngSize)
     };
 
-    int current_frame;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FishAudioProcessorEditor)
 };

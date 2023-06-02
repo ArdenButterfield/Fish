@@ -17,19 +17,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include <chrono>
 
 //==============================================================================
 FishAudioProcessorEditor::FishAudioProcessorEditor (FishAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p)
+    : AudioProcessorEditor (&p), audioProcessor (p), lastTime(-1.0), spinAlong(0.0)
 {
     setLookAndFeel(&fishLookAndFeel);
     
     addAndMakeVisible(fishSlider);
     setSize (320, 320);
-    current_frame = 0;
 
-    dirty_timer = true;
-    timerCallback();
+    startTimerHz(60);
 }
 
 FishAudioProcessorEditor::~FishAudioProcessorEditor()
@@ -37,36 +36,20 @@ FishAudioProcessorEditor::~FishAudioProcessorEditor()
     setLookAndFeel (nullptr);
 }
 
-void FishAudioProcessorEditor::timerCallback()
-{
-    /*
-     The timer sets the rate at which frames are changed in the fish animation.
-     */
-    if (dirty_timer) {
-        setTimer(fishSlider.getValue());
-        dirty_timer = false;
-    }
-    current_frame += frame_step;
-    current_frame %= NUM_FISH_FRAMES;
+template<std::floating_point F>
+inline auto interp(F low, F high, F along) -> F {
+    return (high - low) * along + low;
+}
+
+void FishAudioProcessorEditor::timerCallback() {
+    auto delta = getDeltaTime(juce::Time::getMillisecondCounterHiRes());
+
+    auto sliderAlong = fishSlider.getValue();
+
+    spinAlong = fmod(spinAlong + delta * interp(MIN_ROTATIONS_PER_SECOND, MAX_ROTATIONS_PER_SECOND, sliderAlong), 1.0);
+
     repaint();
 }
-
-void FishAudioProcessorEditor::setTimer(double slider_val)
-{
-    /*
-     At higher slider values, we want the fish to spin faster. This is accomplished by a
-     combination of setting the rate at which we cycle through fish frames, and (to achieve
-     higher rotation speeds without needing very high frame-rates) skipping frames.
-     */
-    double hz = slider_val * 200 + 10;
-    frame_step = 1;
-    while (hz > 30) {
-        frame_step++;
-        hz /= 2;
-    }
-    startTimerHz(hz);
-}
-
 
 void FishAudioProcessorEditor::sliderValueChanged(juce::Slider *slider)
 {
@@ -80,12 +63,26 @@ void FishAudioProcessorEditor::sliderValueChanged(juce::Slider *slider)
      Instead, we mark the timer as dirty, and do not change the spin rate until the next time the
      timer callback is reached.
      */
-    dirty_timer = true;
+}
+
+auto FishAudioProcessorEditor::getDeltaTime(double now) -> double {
+    if (lastTime == -1.0) {
+        lastTime = now;
+        return 0.0;
+    }
+
+    auto deltaMillis = now - lastTime;
+    lastTime = now;
+
+    return deltaMillis / (double)std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::seconds(1)).count();
 }
 
 //==============================================================================
 void FishAudioProcessorEditor::paint (juce::Graphics& g)
 {
+    auto sliderAlong = fishSlider.getValue();
+    auto currentFrame = (int)floor((double)fish_frames.size() * spinAlong);
+
     /*
      There are two fish animations, the normal one and the inverted "ghost" image. Both are big enough
      to fill the frame, we crop them so that the normal one takes up the space from the slider thumb height
@@ -93,26 +90,25 @@ void FishAudioProcessorEditor::paint (juce::Graphics& g)
      slider thumb height. That way, as the slider is dragged up (more distortion) we see more of the ghost
      image.
      */
-    float frac = fishSlider.getValue();
-    
-    g.drawImage(fish_frames[current_frame],
+
+    g.drawImage(fish_frames[currentFrame],
                 0,
                 0,
                 getWidth(),
-                std::ceil(getHeight() - frac * getHeight()),
+                std::ceil(getHeight() - sliderAlong * getHeight()),
                 0,
                 0,
                 640,
-                std::ceil(640 - frac * 640));
-    g.drawImage(ghost_frames[current_frame],
+                std::ceil(640 - sliderAlong * 640));
+    g.drawImage(ghost_frames[currentFrame],
                 0,
-                std::ceil(getHeight() - frac * getHeight()),
+                std::ceil(getHeight() - sliderAlong * getHeight()),
                 getWidth(),
-                std::ceil(getHeight() * frac + 1),
+                std::ceil(getHeight() * sliderAlong + 1),
                 0,
-                std::ceil(640 - frac * 640),
+                std::ceil(640 - sliderAlong * 640),
                 640,
-                std::ceil(frac * 640));
+                std::ceil(sliderAlong * 640));
 }
 
 void FishAudioProcessorEditor::resized()
