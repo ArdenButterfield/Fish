@@ -13,6 +13,8 @@ I made Fish as a part of my undergraduate thesis at the University of Oregon. Go
 
 [Read the manual](Docs/MANUAL.md).
 
+[Want to build it yourself](Docs/BUILDING.md)?
+
 Fish's partner plugin is [Empy](https://github.com/ArdenButterfield/Empy/), who is much more professional and put together than Fish could ever be. Empy has lots of knobs, which Fish doesn't always understand. That said, Empy and Fish love each other very much, and are very proud of their kid [Maim](https://github.com/ArdenButterfield/Maim/), who will go on to do great things some day.
 
 ## Installation Instructions
