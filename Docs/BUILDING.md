@@ -1,8 +1,9 @@
 
-<p style="font-size: xxx-large; font-weight: bold">
-Building Fish 
+# Building Fish
+
+We went through the pain of figuring this shit out so you don't have to.
+
 <img src="images/building/building_fish.png" height="200" alt="building fish">
-</p>
 
 ## Linux
 
@@ -32,7 +33,7 @@ Why the fuck would you want to build this on Mac
 
 5. Launch the command window `x64 Native Tools Command Prompt for VS 2022` which you can find from the start menu if you have Build Tools for Visual Studio 2022 installed.
 
-<p style="text-align: center">
+<p>
     <img src="images/building/start_menu.png" height="200" alt="As easy as tpying in 'x64' into the start menu">
     <br>
     <em>As easy as tpying in "x64" into the start menu</em>
@@ -44,7 +45,7 @@ Why the fuck would you want to build this on Mac
 
 8. Hopefully the build should succeed, and you can now see the built file `Source/lib/lame/output/libmp3lame-static.lib`.
 
-<p style="text-align: center">
+<p>
     <img src="images/building/legendary_artifact.png" height="100" alt="This sight will never not be satisfying">
     <br>
     <em>This sight will never not be satisfying</em>
@@ -52,7 +53,7 @@ Why the fuck would you want to build this on Mac
 
 9. Before we open up the project in CLion, there's some bullshit we need to do. CLion must be run with administrator privileges to install the VST file correctly. If you installed CLion yourself, then you can probably right-click, "Run as Administrator". If you installed CLion through JetBrains Toolbox, click on the vertical dots next to CLion in the list, click "Settings" in the dropdown, the click on "Configuration". Toggle "Run as administrator".
 
-<p style="text-align: center">
+<p>
     <img src="images/building/toolbox_settings.png" height="200" alt="The Cool kids use JetBrains Toolbox">
     <br>
     <em>The Cool kids use JetBrains Toolbox</em>
@@ -68,7 +69,7 @@ Why the fuck would you want to build this on Mac
 
 14. Also when editing the configuration, check "Run with Administrator privileges". Otherwise we're gonna get a permissions denied build error.
 
-<p style="text-align: center">
+<p>
     <img src="images/building/run_config.png" height="400" alt="A well-configured Run Configuration">
     <br>
     <em>A well-configured Run Configuration</em>
