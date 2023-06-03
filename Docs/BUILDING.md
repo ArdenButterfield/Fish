@@ -1,7 +1,7 @@
 
 # Building Fish
 
-We went through the pain of figuring this shit out so you don't have to.
+The fish build process, especially on Windows, is one that could be charitably described as "nontrivial." We figured out the steps, so you don't have to.
 
 <img src="images/building/building_fish.png" height="200" alt="building fish">
 
@@ -11,7 +11,7 @@ Coming soon...
 
 ## Mac
 
-Why the fuck would you want to build this on Mac
+Coming soon...
 
 ## Windows
 
@@ -23,11 +23,17 @@ Why the fuck would you want to build this on Mac
 
 ### Steps:
 
-1. Go through the Intel IPP installer.
+1. Go through the Intel IPP installer. Or, just run the following:
+
+```
+curl --output oneapi.exe https://registrationcenter-download.intel.com/akdlm/irc_nas/19078/w_BaseKit_p_2023.0.0.25940_offline.exe
+./oneapi.exe -s -x -f oneapi
+./oneapi/bootstrapper.exe -s -c --action install --components=intel.oneapi.win.ipp.devel --eula=accept -p=NEED_VS2022_INTEGRATION=1 --log-dir=.
+```
 
 2. Clone the repo with `git clone --recurse-submodules https://github.com/ArdenButterfield/Fish` (Recursive to make sure git clone also hits JUCE).
 
-3. Inside your local project, navigate to `Source/lib/lame` (this is some quirked up version of [LAME](https://lame.sourceforge.io/) included in the project).
+3. Inside your local project, navigate to `Source/lib/lame` (this is a quirked up version of [LAME](https://lame.sourceforge.io/) included in the project, so even if you have LAME already installed, you still need to do this step).
 
 4. Copy the file called `configMS.h` into `libmp3lame/config.h` (you would presumably copy one of the other config files if you were on a different OS).
 
@@ -51,7 +57,7 @@ Why the fuck would you want to build this on Mac
     <em>This sight will never not be satisfying</em>
 </p>
 
-9. Before we open up the project in CLion, there's some bullshit we need to do. CLion must be run with administrator privileges to install the VST file correctly. If you installed CLion yourself, then you can probably right-click, "Run as Administrator". If you installed CLion through JetBrains Toolbox, click on the vertical dots next to CLion in the list, click "Settings" in the dropdown, the click on "Configuration". Toggle "Run as administrator".
+9. Before we open up the project in CLion, there's even more hoops we need to jump through. (Isn't that what you wanted to hear?) CLion must be run with administrator privileges to install the VST file correctly. If you installed CLion yourself, then you can probably right-click, "Run as Administrator". If you installed CLion through JetBrains Toolbox, click on the vertical dots next to CLion in the list, click "Settings" in the dropdown, the click on "Configuration". Toggle "Run as administrator".
 
 <p>
     <img src="images/building/toolbox_settings.png" height="200" alt="The Cool kids use JetBrains Toolbox">
