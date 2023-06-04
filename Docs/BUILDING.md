@@ -7,11 +7,36 @@ The fish build process, especially on Windows, is one that could be charitably d
 
 ## Linux
 
-Coming soon...
+### Prerequisites:
+* [CMake version >= 3.24.1](https://cmake.org/download/) (This link actually takes you to the latest version)
+* ninja
+* ccache (Ensure that ccache is actually on the path: `which g++ gcc` should return `/usr/lib/ccache/g++ /usr/lib/ccache/gcc`.)
 
-## Mac
+### Steps:
 
-Coming soon...
+1. Clone the repository, making sure to use `--recurse-submodules` to clone JUCE as well.
+
+```sh
+git clone --recurse-submodules https://github.com/ArdenButterfield/Fish
+```
+
+2. Build Lame. This project includes a quirked up version of [LAME](https://lame.sourceforge.io/) included in the project, so even if you have LAME installed already, you still need to do this step.
+
+```sh
+cd Fish/Source/lib/lame/`
+./configure CFLAGS="-fPIC"  --disable-frontend --enable-expopt=full --disable-shared --enable-static
+make
+cd ../../..
+```
+
+3. Build the plugin. You can change `Release` to `Debug` in both lines to change the build configuration to one without optimization.
+
+```sh
+cmake -B Builds -G Ninja -DLAME_LIB=Source/lib/lame/libmp3lame/.libs/libmp3lame.a -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
+cmake --build Builds --config Release
+```
+
+Now, you should find `Fish.vst3` inside `~/.vst3`, where it will be discoverable by any digital audio workstation.
 
 ## Windows
 
@@ -33,7 +58,7 @@ curl --output oneapi.exe https://registrationcenter-download.intel.com/akdlm/irc
 
 2. Clone the repo with `git clone --recurse-submodules https://github.com/ArdenButterfield/Fish` (Recursive to make sure git clone also hits JUCE).
 
-3. Inside your local project, navigate to `Source/lib/lame` (this is a quirked up version of [LAME](https://lame.sourceforge.io/) included in the project, so even if you have LAME already installed, you still need to do this step).
+3. Inside your local project, navigate to `Source/lib/lame`. (This is a quirked up version of [LAME](https://lame.sourceforge.io/) included in the project, so even if you have LAME already installed, you still need to do this step.)
 
 4. Copy the file called `configMS.h` into `libmp3lame/config.h` (you would presumably copy one of the other config files if you were on a different OS).
 
