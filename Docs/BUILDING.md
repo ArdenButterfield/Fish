@@ -23,7 +23,7 @@ git clone --recurse-submodules https://github.com/ArdenButterfield/Fish
 2. Build Lame. This project includes a quirked up version of [LAME](https://lame.sourceforge.io/) included in the project, so even if you have LAME installed already, you still need to do this step.
 
 ```sh
-cd Fish/Source/lib/lame/`
+cd Fish/Source/lib/lame/
 ./configure CFLAGS="-fPIC"  --disable-frontend --enable-expopt=full --disable-shared --enable-static
 make
 cd ../../..
@@ -37,6 +37,42 @@ cmake --build Builds --config Release
 ```
 
 Now, you should find `Fish.vst3` inside `~/.vst3`, where it will be discoverable by any digital audio workstation.
+
+## Mac
+
+The steps to build on Mac are very similar to building on Linux. Note that the configure command when building Lame is slightly different than in the Linux instructions.
+
+### Prerequisites:
+* [CMake version >= 3.24.1](https://cmake.org/download/) (This link actually takes you to the latest version)
+* ninja
+* ccache (Ensure that ccache is actually on the path: `which g++ gcc` should return `/usr/local/opt/ccache/libexec/g++ /usr/local/opt/ccache/libexec/gcc
+`, or something similar.)
+
+### Steps:
+
+1. Clone the repository, making sure to use `--recurse-submodules` to clone JUCE as well.
+
+```sh
+git clone --recurse-submodules https://github.com/ArdenButterfield/Fish
+```
+
+2. Build Lame. This project includes a quirked up version of [LAME](https://lame.sourceforge.io/) included in the project, so even if you have LAME installed already, you still need to do this step.
+
+```sh
+cd Fish/Source/lib/lame/
+./configure CFLAGS="-arch x86_64 -arch arm64 -fPIC"  --disable-frontend --enable-expopt=full --disable-shared --enable-static
+make
+cd ../../..
+```
+
+3. Build the plugin. You can change `Release` to `Debug` in both lines to change the build configuration to one without optimization.
+
+```sh
+cmake -B Builds -G Ninja -DLAME_LIB=Source/lib/lame/libmp3lame/.libs/libmp3lame.a -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
+cmake --build Builds --config Release
+```
+
+Now, you should find `Fish.vst3` inside `~/Library/Audio/Plugins/VST3` and `Fish.component` inside `~/Library/Audio/Plug-Ins/Components`, where it will be discoverable by any digital audio workstation.
 
 ## Windows
 
