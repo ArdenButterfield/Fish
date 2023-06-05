@@ -20,7 +20,7 @@ The fish build process, especially on Windows, is one that could be charitably d
 git clone --recurse-submodules https://github.com/ArdenButterfield/Fish
 ```
 
-2. Build Lame. This project includes a quirked up version of [LAME](https://lame.sourceforge.io/) included in the project, so even if you have LAME installed already, you still need to do this step.
+2. Build Lame. This project includes a quirked up version of [LAME](https://lame.sourceforge.io/), so even if you have LAME installed already, you still need to do this step.
 
 ```sh
 cd Fish/Source/lib/lame/
@@ -56,7 +56,7 @@ The steps to build on Mac are very similar to building on Linux. Note that the c
 git clone --recurse-submodules https://github.com/ArdenButterfield/Fish
 ```
 
-2. Build Lame. This project includes a quirked up version of [LAME](https://lame.sourceforge.io/) included in the project, so even if you have LAME installed already, you still need to do this step.
+2. Build Lame. This project includes a quirked up version of [LAME](https://lame.sourceforge.io/), so even if you have LAME installed already, you still need to do this step.
 
 ```sh
 cd Fish/Source/lib/lame/
